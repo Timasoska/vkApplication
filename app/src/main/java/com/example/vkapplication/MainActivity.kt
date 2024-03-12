@@ -4,16 +4,11 @@ import android.os.Bundle
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollState
+
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -56,74 +51,55 @@ import com.example.vkapplication.ui.theme.RowModel
 import com.example.vkapplication.ui.theme.Sites
 
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Row(
-                modifier = Modifier
-                    .background(Color.LightGray)
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    modifier = Modifier.padding(10.dp),
-                    text = "Passwords",
-                    style = TextStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontStyle = FontStyle.Italic,
-                        fontSize = 18.sp
-                    )
-                )
-            }
-            LazyColumn(Modifier.fillMaxSize()) {
-                itemsIndexed(
-                    liftOf(
-
-                    )
-                ){_, item ->
-                    RowModel(item = item)
-                }
-
-                //RowModel(item = Sites(R.drawable.telegram, "telegram", "dfdf", "kfgmk"))
-            }
-
-            Box(modifier = Modifier
-                .fillMaxHeight()
-                .padding(10.dp),
-                contentAlignment = Alignment.TopStart)
-            {
-                fun onClick() {
-
+            Box(modifier = Modifier.fillMaxSize()) {
+                Column(Modifier.fillMaxSize()) {
+                    Row(
+                        modifier = Modifier
+                            .background(Color.LightGray)
+                            .fillMaxWidth()
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(10.dp),
+                            text = "Passwords",
+                            style = TextStyle(
+                                fontWeight = FontWeight.Bold,
+                                fontStyle = FontStyle.Italic,
+                                fontSize = 18.sp
+                            )
+                        )
+                    }
+                    RowModel(item = Sites(R.drawable.telegram, "telegram", "dfdf", "kfgmk"))
                 }
                 FloatingActionButton(
-                    //Засунуть всё в скалфорд
-                    onClick = { onClick() },
+                    onClick = { /* Handle click here */ },
                     shape = CircleShape,
                     containerColor = Color.Blue,
                     contentColor = Color.White,
                     elevation = FloatingActionButtonDefaults.elevation(48.dp),
-
-                    ) {
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.BottomEnd) // Align to bottom end of the screen
+                ) {
                     Icon(Icons.Filled.Add, "button")
                 }
             }
-
-        /*    fun onClick() {
-
-            }
-            FloatingActionButton(
-                //Засунуть всё в скалфорд
-                onClick = { onClick() },
-                shape = CircleShape,
-                containerColor = Color.Blue,
-                contentColor = Color.White,
-                elevation = FloatingActionButtonDefaults.elevation(48.dp),
-
-                ) {
-                Icon(Icons.Filled.Add, "button")
-            }*/
         }
-
-    } // floating Action button сразу уедет куда надо
+    }
 }
 
+/*
+FloatingActionButton(
+//Засунуть всё в скалфорд
+onClick = { onClick() },
+shape = CircleShape,
+containerColor = Color.Blue,
+contentColor = Color.White,
+elevation = FloatingActionButtonDefaults.elevation(48.dp),
+
+) {
+    Icon(Icons.Filled.Add, "button")
+}*/

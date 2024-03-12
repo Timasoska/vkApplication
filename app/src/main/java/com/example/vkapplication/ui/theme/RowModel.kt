@@ -43,7 +43,7 @@ fun RowModel(item: Sites){
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .padding(5.dp)
+                    .padding(5.dp,3.dp)
             )
             Text( //Сделать серый цвет
                 text = item.login,
