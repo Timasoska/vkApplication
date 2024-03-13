@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.vkapplication.ui.theme.MainScreen
 import com.example.vkapplication.ui.theme.RowModel
 import com.example.vkapplication.ui.theme.Screen2
 import com.example.vkapplication.ui.theme.Sites
@@ -41,62 +42,23 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             val navController = rememberNavController()
 
             NavHost(
                 navController = navController,
-                startDestination = "MainActivity"
+                startDestination = "MainScreen"
             ){
                 composable("MainScreen") {
                     // Здесь ваш контент для главного экрана
-                    YourMainScreenContent(navController = navController)
+                    MainScreen(navController = navController)
                 }
-            }
 
-            Scaffold(
-                content = {
-                    LazyColumn {
-                        item {
-                            Row(
-                                modifier = Modifier
-                                    .background(Color.LightGray)
-                                    .fillMaxWidth()
-                            ) {
-                                Text(
-                                    modifier = Modifier.padding(10.dp),
-                                    text = "Passwords",
-                                    style = TextStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        fontStyle = FontStyle.Italic,
-                                        fontSize = 18.sp
-                                    )
-                                )
-                            }
-                        }
-                        items(SampleData.sites) { site ->
-                            RowModel(item = site)
-                        }
-                    }
-                },
-                floatingActionButton = {
-                    Box(
-                        contentAlignment = Alignment.BottomEnd,
-                        modifier = Modifier.padding(3.dp)
-                    ) {
-                        FloatingActionButton(
-                            onClick = {navController.navigate("Screen2")},
-                            shape = CircleShape,
-                            containerColor = Color.Blue,
-                            contentColor = Color.White,
-                            elevation = FloatingActionButtonDefaults.elevation(48.dp),
-                            modifier = Modifier
-                                .align(Alignment.BottomEnd)
-                        ) {
-                            Icon(Icons.Filled.Add, "button")
-                        }
-                    }
+                composable("Screen2"){
+                    Screen2(navController = navController)
                 }
-            )
+
+            }
         }
     }
 }
