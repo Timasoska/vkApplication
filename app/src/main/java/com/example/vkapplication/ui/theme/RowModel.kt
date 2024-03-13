@@ -34,24 +34,6 @@ fun RowModel(item: Sites){
         .shadow(1.dp)
     ){
         FaviconImage(url = item.imageUrl)
-        /*Image(
-            painter = rememberImagePainter(data = item.imageUrl),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .padding(3.dp)
-                .size(64.dp)
-                .clip(CircleShape)
-        )*/
-       /*Image(
-            painter = painterResource(id = item.icon),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .padding(3.dp)
-                .size(64.dp)
-                .clip(CircleShape)
-        )*/
         Column {
             Text(
                 text = item.title,
@@ -92,11 +74,14 @@ fun FaviconImage(url: String) {
             placeholder(R.drawable.telegram) // Заглушка, которая отобразится во время загрузки
         }
     )
-
     // Отображаем изображение с использованием фавикона
     Image(
         painter = painter,
         contentDescription = null,
-        modifier = Modifier.size(64.dp).clip(CircleShape)
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .size(64.dp)
+            .clip(CircleShape)
+            //.padding(3.dp)
     )
 }
