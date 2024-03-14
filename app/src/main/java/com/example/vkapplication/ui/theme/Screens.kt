@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Title
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.rememberScaffoldState
@@ -73,12 +74,26 @@ fun Screen2(navController: NavHostController) {
             .padding(20.dp)
     ) {
         var login by remember { mutableStateOf("")}
+        var title by remember { mutableStateOf("")}
         var password by rememberSaveable { mutableStateOf("")}
         var passwordVisible by remember { mutableStateOf(false)}
         var url by remember { mutableStateOf("")}
         val coroutineScope = rememberCoroutineScope()
         val scaffoldState = rememberScaffoldState()
 
+        OutlinedTextField(
+            value = title,
+            onValueChange = {title = it},
+            label = {Text("Название")},
+            modifier = Modifier.padding(20.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Title,
+                    contentDescription = null
+                )
+            }
+        )
         OutlinedTextField(
             value = login,
             onValueChange = {login = it},
@@ -108,7 +123,6 @@ fun Screen2(navController: NavHostController) {
                     Icon(imageVector = image, "button")
                 }
             },
-
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Filled.Lock,
@@ -132,7 +146,7 @@ fun Screen2(navController: NavHostController) {
         )
 
         Button(onClick = {
-            if (login.isEmpty() && password.isNotEmpty()) {
+            if (login.isEmpty() || password.isNotEmpty()) {
                 coroutineScope.launch {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = "Логин пустой",

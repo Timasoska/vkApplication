@@ -52,14 +52,14 @@ fun RowModel(item: Sites){
         }
     }
 }
-@Composable
+/*@Composable
 fun getFavicon(url: String): Painter {
     // Создаем URL для получения фавикона
     val faviconUrl = "https://www.google.com/s2/favicons?domain=$url"
 
     // Используем Coil для загрузки и отображения фавикона
     return rememberImagePainter(data = faviconUrl)
-}
+}*/
 @Composable
 fun FaviconImage(url: String) {
     // Получаем URL фавикона

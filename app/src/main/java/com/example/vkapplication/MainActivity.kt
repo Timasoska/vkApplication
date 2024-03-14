@@ -62,6 +62,5 @@ object SampleData {
         Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
         Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
         Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        //Sites(R.drawable.telegram, "telegram", "dfdf", "kfgmk"),
     )
 }
