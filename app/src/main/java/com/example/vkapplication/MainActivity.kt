@@ -5,11 +5,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.vkapplication.ui.theme.DataStore
 import com.example.vkapplication.ui.theme.MainScreen
 import com.example.vkapplication.ui.theme.RowModel
+import com.example.vkapplication.ui.theme.SampleData
 import com.example.vkapplication.ui.theme.Screen2
 import com.example.vkapplication.ui.theme.Sites
 
@@ -19,6 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val dataStore = DataStore(this)
 
             val navController = rememberNavController()
 
@@ -28,11 +32,11 @@ class MainActivity : ComponentActivity() {
             ){
                 composable("MainScreen") {
                     // Здесь ваш контент для главного экрана
-                    MainScreen(navController = navController)
+                    MainScreen(navController = navController, dataStore = dataStore)
                 }
 
                 composable("Screen2"){
-                    Screen2(navController = navController)
+                    Screen2(navController = navController, dataStore = dataStore)
                 }
 
             }
@@ -41,26 +45,3 @@ class MainActivity : ComponentActivity() {
 }
 
 
-object SampleData {
-    val sites = listOf(
-        Sites("https://music.yandex.ru/home","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-        Sites("https://www.google.ru","Yandex", "dfdf", "kfgmk"),
-    )
-}

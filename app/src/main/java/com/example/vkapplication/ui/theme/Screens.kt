@@ -59,13 +59,13 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.vkapplication.SampleData
-import kotlinx.coroutines.launch
 
+
+var SampleData = mutableListOf<Sites>()
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen2(navController: NavHostController) {
+fun Screen2(navController: NavHostController, dataStore: DataStore) {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center,
@@ -146,18 +146,22 @@ fun Screen2(navController: NavHostController) {
         )
 
         Button(onClick = {
-            if (login.isEmpty() || password.isNotEmpty()) {
-                coroutineScope.launch {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = "Логин пустой",
-                        duration = SnackbarDuration.Long
-                    )
-                }
-            }
+                val newSite = Sites(
+                    imageUrl = url,
+                    title = title,
+                    login = login,
+                    password = password
+                )
+            // Загрузить существующие данные из хранилища
+            val existingData = dataStore.loadSampleData().toMutableList()
+
+            // Добавить новый сайт к существующим данным
+            existingData.add(newSite)
+
+            dataStore.saveSampleData(existingData)
         }) {
             Text("Добавить")
         }
-
     }
 }
 
@@ -165,7 +169,10 @@ fun Screen2(navController: NavHostController) {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavHostController){
+fun MainScreen(navController: NavHostController, dataStore: DataStore){
+    val sampleData = remember{dataStore.loadSampleData()}
+    //SampleData = remember { dataStore.loadSampleData() }
+
     Scaffold(
         content = {
             LazyColumn {
@@ -186,7 +193,7 @@ fun MainScreen(navController: NavHostController){
                         )
                     }
                 }
-                items(SampleData.sites) { site ->
+                items(sampleData) { site ->
                     RowModel(item = site)
                 }
             }
@@ -211,4 +218,6 @@ fun MainScreen(navController: NavHostController){
         }
     )
 }
+
+
 

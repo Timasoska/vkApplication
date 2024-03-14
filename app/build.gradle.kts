@@ -50,6 +50,8 @@ android {
 }
 
 dependencies {
+
+    implementation ("com.google.code.gson:gson:2.8.8")
     implementation ("androidx.compose.material:material-icons-extended:1.6.0")
     implementation ("androidx.compose.material:material:1.6.3")
     implementation ("androidx.navigation:navigation-compose:2.7.7")
