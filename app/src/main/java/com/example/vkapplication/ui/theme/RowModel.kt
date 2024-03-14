@@ -9,8 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -28,13 +34,16 @@ import java.time.format.TextStyle
 
 @Composable
 fun RowModel(item: Sites){
-    Row(modifier = Modifier
+    Card(modifier = Modifier
         .fillMaxWidth()
         .clickable(onClick = {})
         .shadow(1.dp)
     ){
         FaviconImage(url = item.imageUrl)
-        Column {
+        Row (
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ){
             Text(
                 text = item.title,
                 fontSize = 20.sp,
@@ -49,17 +58,18 @@ fun RowModel(item: Sites){
                 modifier = Modifier
                     .padding(5.dp, 3.dp)
                 )
+            IconButton(
+                onClick = {
+
+                }) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Delete"
+                )
+            }
         }
     }
 }
-/*@Composable
-fun getFavicon(url: String): Painter {
-    // Создаем URL для получения фавикона
-    val faviconUrl = "https://www.google.com/s2/favicons?domain=$url"
-
-    // Используем Coil для загрузки и отображения фавикона
-    return rememberImagePainter(data = faviconUrl)
-}*/
 @Composable
 fun FaviconImage(url: String) {
     // Получаем URL фавикона
@@ -69,7 +79,6 @@ fun FaviconImage(url: String) {
     val painter: Painter = rememberImagePainter(
         data = faviconUrl,
         builder = {
-            // Опционально можно указать параметры для обрезки и размера изображения
             size(64)
             placeholder(R.drawable.telegram) // Заглушка, которая отобразится во время загрузки
         }

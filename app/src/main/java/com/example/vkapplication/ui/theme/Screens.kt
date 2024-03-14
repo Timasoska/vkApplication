@@ -78,8 +78,6 @@ fun Screen2(navController: NavHostController, dataStore: DataStore) {
         var password by rememberSaveable { mutableStateOf("")}
         var passwordVisible by remember { mutableStateOf(false)}
         var url by remember { mutableStateOf("")}
-        val coroutineScope = rememberCoroutineScope()
-        val scaffoldState = rememberScaffoldState()
 
         OutlinedTextField(
             value = title,
