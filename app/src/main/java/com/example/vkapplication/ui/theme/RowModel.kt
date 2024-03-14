@@ -42,7 +42,7 @@ fun RowModel(item: Sites){
         FaviconImage(url = item.imageUrl)
         Row (
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ){
             Text(
                 text = item.title,
@@ -58,15 +58,18 @@ fun RowModel(item: Sites){
                 modifier = Modifier
                     .padding(5.dp, 3.dp)
                 )
-            IconButton(
-                onClick = {
+        }
+        // Помещаем иконку мусорки за пределами Row
+        IconButton(
+            onClick = {
 
-                }) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete"
-                )
-            }
+            },
+            modifier = Modifier.align(Alignment.End) // Выравниваем иконку по правому краю
+        ) {
+            Icon(
+                imageVector = Icons.Default.Delete,
+                contentDescription = "Delete"
+            )
         }
     }
 }
