@@ -1,6 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id ("kotlin-kapt")
+}
+kapt {
+    correctErrorTypes = true
 }
 
 android {
@@ -30,11 +34,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17 //Была 1_8
+        targetCompatibility = JavaVersion.VERSION_17 //Была 1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17" //Была 1.8
     }
     buildFeatures {
         compose = true
@@ -51,6 +55,11 @@ android {
 
 dependencies {
 
+    /* ROOM */
+    implementation ("androidx.room:room-ktx:2.5.1")
+    kapt ("androidx.room:room-compiler:2.5.1")
+
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
     implementation ("com.google.code.gson:gson:2.8.8")
     implementation ("androidx.compose.material:material-icons-extended:1.6.0")
     implementation ("androidx.compose.material:material:1.6.3")

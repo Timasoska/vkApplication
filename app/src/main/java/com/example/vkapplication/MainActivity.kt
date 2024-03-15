@@ -5,10 +5,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.vkapplication.ui.theme.DataStore
 import com.example.vkapplication.ui.theme.MainScreen
 import com.example.vkapplication.ui.theme.Screen2
 
@@ -18,8 +18,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val dataStore = DataStore(this)
-
             val navController = rememberNavController()
 
             NavHost(
@@ -28,11 +26,11 @@ class MainActivity : ComponentActivity() {
             ){
                 composable("MainScreen") {
                     // Здесь ваш контент для главного экрана
-                    MainScreen(navController = navController, dataStore = dataStore)
+                    MainScreen(navController = navController)
                 }
 
                 composable("Screen2"){
-                    Screen2(navController = navController, dataStore = dataStore)
+                    Screen2(navController = navController)
                 }
 
             }

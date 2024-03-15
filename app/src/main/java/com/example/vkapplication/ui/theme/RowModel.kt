@@ -2,16 +2,15 @@ package com.example.vkapplication.ui.theme
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -23,21 +22,22 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.vkapplication.R
-import java.time.format.TextStyle
 
 
 @Composable
-fun RowModel(item: Sites){
-    Card(modifier = Modifier
+fun RowModel(item:  Sites){
+
+
+    Column(modifier = Modifier
         .fillMaxWidth()
         .clickable(onClick = {})
-        .shadow(1.dp)
+        .shadow(1.dp),
+        Arrangement.Center
     ){
         FaviconImage(url = item.imageUrl)
         Row (
@@ -62,7 +62,7 @@ fun RowModel(item: Sites){
         // Помещаем иконку мусорки за пределами Row
         IconButton(
             onClick = {
-
+                // Удаляем элемент из базы данных
             },
             modifier = Modifier.align(Alignment.End) // Выравниваем иконку по правому краю
         ) {
