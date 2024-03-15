@@ -30,7 +30,7 @@ import com.example.vkapplication.R
 
 
 @Composable
-fun RowModel(item:  Sites){
+fun RowModel(item: Sites){
 
 
     Column(modifier = Modifier

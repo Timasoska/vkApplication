@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -56,7 +57,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Screen2(navController: NavHostController) {
+fun Screen2(navController: NavHostController, siteDao: Dao) {
 
 
     Column(
@@ -154,9 +155,9 @@ fun Screen2(navController: NavHostController) {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavHostController){
+fun MainScreen(navController: NavHostController, siteDao: Dao){
     // Загрузка данных из базы данных
-
+    val sites by siteDao.getSites().collectAsState(initial = emptyList())
 
     Scaffold(
         content = {
@@ -178,7 +179,7 @@ fun MainScreen(navController: NavHostController){
                         )
                     }
                 }
-                items(sampleData) { site ->
+                items(sites) { site ->
                     RowModel(item = site)
                 }
             }
