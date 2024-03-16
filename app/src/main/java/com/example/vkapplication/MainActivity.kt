@@ -20,15 +20,6 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        try {
-            var database = Room.databaseBuilder(
-                applicationContext,
-                SiteDataBase::class.java,
-                "site_database"
-            ).build()
-        } catch (e: Exception) {
-            Log.e("MainActivity", "Error initializing database", e)
-        }
 
         // Создание экземпляра базы данных
         var database = Room.databaseBuilder(

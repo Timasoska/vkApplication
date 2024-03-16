@@ -30,12 +30,11 @@ import com.example.vkapplication.R
 
 
 @Composable
-fun RowModel(item: Sites,onDeleteClicked: () -> Unit){
-
+fun RowModel(item: Sites,onDeleteClicked: () -> Unit, onClick: () -> Unit){
 
     Column(modifier = Modifier
         .fillMaxWidth()
-        .clickable(onClick = {})
+        .clickable(onClick = onClick)
         .shadow(1.dp),
         Arrangement.Center
     ){

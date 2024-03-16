@@ -198,8 +198,7 @@ fun MainScreen(navController: NavHostController, siteDao: Dao){
                     }
                 }
                 items(sites) { site ->
-                    RowModel(item = site){
-                        // Удаляем элемент из базы данных
+                    RowModel(item = site, onDeleteClicked ={
                         try {
                             CoroutineScope(Dispatchers.IO).launch {
                                 siteDao.deleteSite(site)
@@ -208,7 +207,9 @@ fun MainScreen(navController: NavHostController, siteDao: Dao){
                             // Log the exception
                             Log.e("DeleteSite", "Error deleting site", e)
                         }
-                    }
+                    }, onClick = {
+                        navController.navigate("Screen2")
+                    })
                 }
             }
         },
