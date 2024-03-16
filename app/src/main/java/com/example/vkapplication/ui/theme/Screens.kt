@@ -61,6 +61,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import androidx.core.os.bundleOf
+import kotlinx.coroutines.flow.firstOrNull
 
 
 //var SampleData = mutableListOf<Sites>()
@@ -68,6 +69,8 @@ import androidx.core.os.bundleOf
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Screen2(navController: NavHostController, siteDao: Dao) {
+    // State для хранения данных сайта
+    val siteState = remember { mutableStateOf<Sites?>(null) }
 
 
     Column(
@@ -77,7 +80,8 @@ fun Screen2(navController: NavHostController, siteDao: Dao) {
             .padding(20.dp)
     ) {
         var login by rememberSaveable { mutableStateOf("")}
-        var title by rememberSaveable { mutableStateOf("")}
+        //var title by rememberSaveable { mutableStateOf("")}
+        var title by rememberSaveable { mutableStateOf(siteState.value?.title ?: "") }
         var password by rememberSaveable { mutableStateOf("")}
         var passwordVisible by rememberSaveable { mutableStateOf(false)}
         var url by rememberSaveable { mutableStateOf("")}
@@ -95,6 +99,7 @@ fun Screen2(navController: NavHostController, siteDao: Dao) {
                 )
             }
         )
+        Log.d("Screen2", "Title value: $title")
         OutlinedTextField(
             value = login,
             onValueChange = {login = it},
@@ -209,9 +214,7 @@ fun MainScreen(navController: NavHostController, siteDao: Dao){
                         }
                     }, onClick = {
                         //Берем данные с БД
-                        // Передача текущих значений полей в аргументах
                         navController.navigate("Screen2")
-
                     })
                 }
             }

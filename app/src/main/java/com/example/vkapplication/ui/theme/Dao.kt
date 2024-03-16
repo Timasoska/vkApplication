@@ -19,4 +19,7 @@ interface Dao {
     @Query("SELECT * FROM site")
     fun getSites(): Flow<List<Sites>>
 
+    @Query("SELECT * FROM site WHERE id = :siteId")
+    fun getSiteById(siteId: Int): Flow<Sites?> // Изменение типа возвращаемого значения на Flow<Sites?>
+
 }
