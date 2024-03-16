@@ -60,6 +60,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import androidx.core.os.bundleOf
 
 
 //var SampleData = mutableListOf<Sites>()
@@ -75,11 +76,11 @@ fun Screen2(navController: NavHostController, siteDao: Dao) {
             .fillMaxSize()
             .padding(20.dp)
     ) {
-        var login by remember { mutableStateOf("")}
-        var title by remember { mutableStateOf("")}
+        var login by rememberSaveable { mutableStateOf("")}
+        var title by rememberSaveable { mutableStateOf("")}
         var password by rememberSaveable { mutableStateOf("")}
-        var passwordVisible by remember { mutableStateOf(false)}
-        var url by remember { mutableStateOf("")}
+        var passwordVisible by rememberSaveable { mutableStateOf(false)}
+        var url by rememberSaveable { mutableStateOf("")}
 
         OutlinedTextField(
             value = title,
@@ -176,7 +177,6 @@ fun MainScreen(navController: NavHostController, siteDao: Dao){
     // Загрузка данных из базы данных
     val sites by siteDao.getSites().collectAsState(initial = emptyList())
 
-
     Scaffold(
         content = {
             LazyColumn {
@@ -208,7 +208,10 @@ fun MainScreen(navController: NavHostController, siteDao: Dao){
                             Log.e("DeleteSite", "Error deleting site", e)
                         }
                     }, onClick = {
+                        //Берем данные с БД
+                        // Передача текущих значений полей в аргументах
                         navController.navigate("Screen2")
+
                     })
                 }
             }
