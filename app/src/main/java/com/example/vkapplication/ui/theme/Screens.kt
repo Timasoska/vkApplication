@@ -1,6 +1,7 @@
 package com.example.vkapplication.ui.theme
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,7 +36,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -49,13 +52,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 
 //var SampleData = mutableListOf<Sites>()
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -139,17 +146,27 @@ fun Screen2(navController: NavHostController, siteDao: Dao) {
         )
 
         Button(onClick = {
-                val newSite = Sites(
-                    imageUrl = url,
-                    title = title,
-                    login = login,
-                    password = password
-                )
-            // Запуск корутины для выполнения асинхронной операции вставки данных в базу данных
-            // Вставка нового элемента в базу данных
-            LaunchedEffect(Unit) {
-                siteDao.insertSite(newSite)
+            val newSite = Sites(
+                imageUrl = url,
+                title = title,
+                login = login,
+                password = password
+            )
+            try {
+                // Insert the new site into the database
+                CoroutineScope(Dispatchers.IO).launch {
+                    siteDao.insertSite(newSite)
+                }
+            } catch (e: Exception) {
+                // Log the exception
+                Log.e("InsertSite", "Error inserting site", e)
+                // You can also show a Toast or display a Snackbar with an error message
             }
+            // Загрузить существующие данные из хранилища
+                //val existingData =
+            // Вставка нового элемента в базу данных
+            //siteDao.insertSite(newSite)
+
         }) {
             Text("Добавить")
         }
@@ -162,6 +179,7 @@ fun Screen2(navController: NavHostController, siteDao: Dao) {
 fun MainScreen(navController: NavHostController, siteDao: Dao){
     // Загрузка данных из базы данных
     val sites by siteDao.getSites().collectAsState(initial = emptyList())
+
 
     Scaffold(
         content = {
@@ -208,6 +226,7 @@ fun MainScreen(navController: NavHostController, siteDao: Dao){
         }
     )
 }
+
 
 
 

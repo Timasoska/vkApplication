@@ -12,11 +12,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSite(site: Sites)
+    fun insertSite(site: Sites)
 
     @Delete
-    suspend fun deleteSite(site: Sites)
+    fun deleteSite(site: Sites)
     @Query("SELECT * FROM site")
-    suspend fun getSites(): Flow<List<Sites>>
+    fun getSites(): Flow<List<Sites>>
 
 }
