@@ -160,12 +160,8 @@ fun Screen2(navController: NavHostController, siteDao: Dao) {
             } catch (e: Exception) {
                 // Log the exception
                 Log.e("InsertSite", "Error inserting site", e)
-                // You can also show a Toast or display a Snackbar with an error message
             }
-            // Загрузить существующие данные из хранилища
-                //val existingData =
-            // Вставка нового элемента в базу данных
-            //siteDao.insertSite(newSite)
+
 
         }) {
             Text("Добавить")
@@ -202,7 +198,17 @@ fun MainScreen(navController: NavHostController, siteDao: Dao){
                     }
                 }
                 items(sites) { site ->
-                    RowModel(item = site)
+                    RowModel(item = site){
+                        // Удаляем элемент из базы данных
+                        try {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                siteDao.deleteSite(site)
+                            }
+                        } catch (e: Exception) {
+                            // Log the exception
+                            Log.e("DeleteSite", "Error deleting site", e)
+                        }
+                    }
                 }
             }
         },

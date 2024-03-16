@@ -30,7 +30,7 @@ import com.example.vkapplication.R
 
 
 @Composable
-fun RowModel(item: Sites){
+fun RowModel(item: Sites,onDeleteClicked: () -> Unit){
 
 
     Column(modifier = Modifier
@@ -61,9 +61,8 @@ fun RowModel(item: Sites){
         }
         // Помещаем иконку мусорки за пределами Row
         IconButton(
-            onClick = {
+            onClick = onDeleteClicked,
                 // Удаляем элемент из базы данных
-            },
             modifier = Modifier.align(Alignment.End) // Выравниваем иконку по правому краю
         ) {
             Icon(
