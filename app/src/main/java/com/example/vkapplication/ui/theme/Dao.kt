@@ -1,5 +1,7 @@
 package com.example.vkapplication.ui.theme
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -15,6 +17,6 @@ interface Dao {
     @Delete
     suspend fun deleteSite(site: Sites)
     @Query("SELECT * FROM site")
-    fun getSites(): Flow<List<Sites>>
+    suspend fun getSites(): Flow<List<Sites>>
 
 }

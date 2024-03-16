@@ -31,6 +31,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -54,6 +55,7 @@ import kotlinx.coroutines.launch
 
 
 //var SampleData = mutableListOf<Sites>()
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -145,12 +147,14 @@ fun Screen2(navController: NavHostController, siteDao: Dao) {
                 )
             // Запуск корутины для выполнения асинхронной операции вставки данных в базу данных
             // Вставка нового элемента в базу данных
+            LaunchedEffect(Unit) {
+                siteDao.insertSite(newSite)
+            }
         }) {
             Text("Добавить")
         }
     }
 }
-
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
