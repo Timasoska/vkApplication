@@ -3,6 +3,8 @@ package com.example.vkapplication.presentation
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,7 +42,9 @@ class MainActivity : FragmentActivity() {
 
             NavHost(
                 navController = navController,
-                startDestination = "Screen"
+                startDestination = "Screen" ,
+                enterTransition = { EnterTransition.None },
+                exitTransition = { ExitTransition.None },
             ) {
 
                 composable("Screen") {
