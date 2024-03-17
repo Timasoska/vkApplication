@@ -1,4 +1,4 @@
-package com.example.vkapplication.ui.theme
+package com.example.vkapplication.presentation.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,33 +22,37 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.example.vkapplication.R
+import com.example.vkapplication.data.Site
 
 
 @Composable
-fun RowModel(item: Sites,onDeleteClicked: () -> Unit, onClick: () -> Unit){
+fun RowModel(item: Site, onDeleteClicked: () -> Unit, onClick: () -> Unit) {
 
-    Column(modifier = Modifier
-        .fillMaxWidth()
-        .clickable(onClick = onClick)
-        .shadow(1.dp),
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .shadow(1.dp),
         Arrangement.Center
-    ){
-        FaviconImage(url = item.imageUrl)
-        Row (
+    ) {
+        FaviconImage(url = item.websiteUrl)
+        Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-        ){
+        ) {
             Text(
                 text = item.title,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .padding(5.dp,3.dp)
+                    .padding(5.dp, 3.dp)
             )
             Text( //Сделать серый цвет
                 text = item.login,
@@ -56,12 +60,12 @@ fun RowModel(item: Sites,onDeleteClicked: () -> Unit, onClick: () -> Unit){
                 fontSize = 15.sp,
                 modifier = Modifier
                     .padding(5.dp, 3.dp)
-                )
+            )
         }
         // Помещаем иконку мусорки за пределами Row
         IconButton(
             onClick = onDeleteClicked,
-                // Удаляем элемент из базы данных
+            // Удаляем элемент из базы данных
             modifier = Modifier.align(Alignment.End) // Выравниваем иконку по правому краю
         ) {
             Icon(
@@ -71,19 +75,20 @@ fun RowModel(item: Sites,onDeleteClicked: () -> Unit, onClick: () -> Unit){
         }
     }
 }
+
 @Composable
 fun FaviconImage(url: String) {
     // Получаем URL фавикона
     val faviconUrl = "https://www.google.com/s2/favicons?domain=$url"
 
     // Используем Coil для загрузки изображения
-    val painter: Painter = rememberImagePainter(
-        data = faviconUrl,
-        builder = {
-            size(64)
-            placeholder(R.drawable.telegram) // Заглушка, которая отобразится во время загрузки
-        }
+    val painter: Painter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(LocalContext.current).data(faviconUrl)
+            .size(64)
+            .placeholder(R.drawable.telegram) // Заглушка, которая отобразится во время загрузки
+            .build()
     )
+
     // Отображаем изображение с использованием фавикона
     Image(
         painter = painter,
@@ -92,6 +97,6 @@ fun FaviconImage(url: String) {
         modifier = Modifier
             .size(64.dp)
             .clip(CircleShape)
-            //.padding(3.dp)
+        //.padding(3.dp)
     )
 }
