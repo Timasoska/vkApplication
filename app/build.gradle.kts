@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.example.vkapplication"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -55,7 +55,7 @@ dependencies {
     /* ROOM */
     implementation ("androidx.room:room-ktx:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
-
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation ("com.google.code.gson:gson:2.9.0")
     implementation ("androidx.compose.material:material-icons-extended:1.6.3")
